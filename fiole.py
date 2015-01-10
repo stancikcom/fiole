@@ -1233,6 +1233,13 @@ def run_gevent(host, port, handler):
     srv = pywsgi.WSGIServer((host, port), handler)
     srv.serve_forever()
 
+def run_bjoern(host, port, handler):
+    """Adapter to run the async Bjoern Wsgi server"""
+    # https://github.com/jonashaag/bjoern
+    import bjoern
+    bjoern.listen(handler, host, port)
+    bjoern.run()
+    
 def run_fiole(app=default_app, server=run_wsgiref, host=None, port=None):
     """Run the *Fiole* web server."""
     if not hasattr(app, 'secret_key'):
